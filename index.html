@@ -1,0 +1,382 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>පරිගණක ලෝකය</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@600;800&family=Noto+Sans+Sinhala:wght@400;600;800&display=swap">
+<style>
+/* Layout: a sticker-book page — chunky outlined "stickers" on a sky-blue desk, one section per idea, scrolling top to bottom. Single bright theme, chosen deliberately for young readers. */
+:root{
+  --sky:#d9f0ff; --paper:#ffffff; --ink:#1d2340; --ink-soft:#4a5175;
+  --sun:#ffcf3f; --coral:#ff6b5b; --leaf:#38c27a; --grape:#8a5cf6; --ocean:#2f8cff; --pink:#ff8fc8;
+  --sun-t:#fff4cc; --coral-t:#ffe2de; --leaf-t:#d9f7e7; --grape-t:#ece4ff; --ocean-t:#dbeaff; --pink-t:#ffe4f2;
+  --display:"Gemunu Libre","Noto Sans Sinhala","Iskoola Pota",system-ui,sans-serif;
+  --body:"Noto Sans Sinhala","Iskoola Pota","Nirmala UI",system-ui,sans-serif;
+  --line:3px solid var(--ink); --pop:5px 5px 0 var(--ink); --r:22px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--sky);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.75;
+  background-image:radial-gradient(circle at 1px 1px, rgba(29,35,64,.09) 1.5px, transparent 0);background-size:26px 26px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:18px;padding-block:18px 60px;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);line-height:1.25;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,5vw,42px);font-weight:800}
+h3{font-size:24px;font-weight:800}
+p{margin:0}
+button{font-family:var(--body);cursor:pointer}
+button:focus-visible,.chip:focus-visible{outline:4px solid var(--grape);outline-offset:3px}
+
+/* hero */
+.hero{background:var(--sun);border:var(--line);border-radius:30px;box-shadow:8px 8px 0 var(--ink);padding:28px clamp(18px,4vw,40px);
+  display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;position:relative;overflow:hidden}
+.hero .tag{display:inline-block;background:var(--paper);border:var(--line);border-radius:999px;padding:2px 16px;font-weight:600;font-size:15px}
+.hero h1{font-size:clamp(44px,8vw,78px);font-weight:800;margin-block:12px 6px;letter-spacing:.5px}
+.hero h1 span{color:var(--coral);-webkit-text-stroke:0}
+.hero p{font-size:19px;max-width:30ch}
+.mascot{width:100%;max-width:300px;justify-self:center;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-2deg)}}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.nav a{background:var(--paper);color:var(--ink);text-decoration:none;border:var(--line);border-radius:14px;padding:4px 14px;font-weight:600;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.nav a:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+
+/* section shells */
+.sec{display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px}
+.sec-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge{width:58px;height:58px;flex:none;border:var(--line);border-radius:18px;display:grid;place-items:center;font-family:var(--display);font-size:30px;font-weight:800;box-shadow:3px 3px 0 var(--ink)}
+.lead{font-size:18px;color:var(--ink-soft);max-width:62ch}
+.panel{background:var(--paper);border:var(--line);border-radius:var(--r);box-shadow:var(--pop);padding:22px}
+
+/* what is a computer */
+.def{font-size:21px;font-weight:600;background:var(--ocean-t);border:var(--line);border-radius:var(--r);padding:18px 22px;box-shadow:var(--pop)}
+.def b{color:var(--ocean)}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.step{border:var(--line);border-radius:var(--r);padding:16px;text-align:center;box-shadow:var(--pop);display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
+.step .big{font-family:var(--display);font-size:26px;font-weight:800}
+.step .ex{background:var(--paper);border:2px dashed var(--ink);border-radius:12px;padding:4px 12px;font-weight:600;font-size:16px}
+.arrow{align-self:center;font-size:40px;font-weight:800;color:var(--ink)}
+.s1{background:var(--leaf-t)} .s2{background:var(--grape-t)} .s3{background:var(--coral-t)}
+
+/* device cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{perspective:900px;border:0;background:none;padding:0;text-align:left;min-height:270px}
+.card-in{position:relative;width:100%;height:100%;min-height:270px;transition:transform .6s;transform-style:preserve-3d}
+.card.flip .card-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border:var(--line);border-radius:var(--r);box-shadow:var(--pop);backface-visibility:hidden;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.face svg{width:110px;height:100px}
+.face .en{font-size:14px;color:var(--ink-soft);font-weight:600}
+.face .hint{font-size:13px;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-top:4px}
+.back{transform:rotateY(180deg);background:var(--paper);font-size:16px}
+.back h3{font-size:22px}
+.c1 .front{background:var(--grape-t)} .c2 .front{background:var(--ocean-t)} .c3 .front{background:var(--leaf-t)} .c4 .front{background:var(--pink-t)}
+.c1 .back{border-color:var(--grape)}
+
+.mini{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.mini div{background:var(--paper);border:var(--line);border-radius:16px;padding:10px 6px;text-align:center;font-weight:600;font-size:15px;line-height:1.4}
+.mini svg{width:52px;height:46px;display:block;margin:0 auto 4px}
+
+/* input / output */
+.io{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.io .box{border:var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--pop);display:flex;flex-direction:column;gap:10px}
+.box.in{background:var(--leaf-t)} .box.out{background:var(--coral-t)}
+.box h3 .pill{font-family:var(--body);font-size:14px;font-weight:600;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-left:6px;vertical-align:middle}
+.drop{min-height:64px;background:var(--paper);border:2px dashed var(--ink);border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.drop:empty::before{content:"මෙහි උපාංග එකතු වේ…";color:var(--ink-soft);font-size:15px}
+.pool{display:flex;flex-wrap:wrap;gap:12px}
+.chip{background:var(--sun-t);border:var(--line);border-radius:16px;padding:8px 12px;box-shadow:3px 3px 0 var(--ink);display:flex;flex-direction:column;gap:6px;align-items:center;font-weight:600}
+.chip .btns{display:flex;gap:6px}
+.chip .btns button{border:2px solid var(--ink);border-radius:10px;padding:0 10px;font-weight:600;font-size:14px}
+.btn-in{background:var(--leaf)} .btn-out{background:var(--coral)}
+.placed{background:var(--sun);border:2px solid var(--ink);border-radius:999px;padding:0 12px;font-weight:600;font-size:15px;animation:pop .35s}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-5px)}}
+.msg{font-weight:800;font-size:18px;min-height:30px}
+.reset{align-self:flex-start;background:var(--paper);border:var(--line);border-radius:12px;padding:2px 14px;font-weight:600;box-shadow:3px 3px 0 var(--ink)}
+
+/* picture labelling */
+.labeller{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center}
+.labeller img{width:100%;border:var(--line);border-radius:var(--r);background:#fff;padding:10px}
+.ltrs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ltr{background:var(--ocean-t);border:var(--line);border-radius:14px;padding:6px 10px;display:flex;gap:10px;align-items:center;font-weight:600;text-align:left;box-shadow:3px 3px 0 var(--ink);font-size:16px;min-height:52px}
+.ltr b{font-family:var(--display);font-size:24px;width:36px;height:36px;flex:none;border-radius:10px;background:var(--ocean);color:#fff;display:grid;place-items:center;border:2px solid var(--ink)}
+.ltr.show{background:var(--leaf-t)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fact{border:var(--line);border-radius:var(--r);box-shadow:var(--pop);padding:18px;display:flex;flex-direction:column;gap:8px;position:relative;min-width:0}
+.fact .kicker{font-weight:800;font-size:14px;letter-spacing:.3px;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:0 12px;align-self:flex-start}
+.fact .num{font-family:var(--display);font-size:42px;font-weight:800;line-height:1}
+.f1{background:var(--sun-t)} .f2{background:var(--grape-t)} .f3{background:var(--leaf-t)} .f4{background:var(--pink-t)} .f5{background:var(--ocean-t)} .f6{background:var(--coral-t)}
+
+/* safety tips */
+.tips{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tip{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:var(--line);border-radius:18px;padding:14px}
+.tip .ok{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:800;font-size:20px}
+.yes{background:var(--leaf)} .no{background:var(--coral)}
+
+/* quiz */
+.quiz{background:var(--grape-t)}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.prog{display:flex;gap:6px}
+.prog i{width:26px;height:10px;border-radius:6px;border:2px solid var(--ink);background:var(--paper)}
+.prog i.done{background:var(--grape)}
+.qtext{font-size:22px;font-weight:800;margin-block:14px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--paper);border:var(--line);border-radius:16px;padding:12px 16px;font-size:18px;font-weight:600;text-align:left;box-shadow:3px 3px 0 var(--ink);transition:transform .12s}
+.opt:hover:not(:disabled){transform:translate(-2px,-2px)}
+.opt.right{background:var(--leaf)} .opt.wrong{background:var(--coral)}
+.opt:disabled{cursor:default}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.next{background:var(--sun);border:var(--line);border-radius:14px;padding:6px 22px;font-size:18px;font-weight:800;box-shadow:3px 3px 0 var(--ink)}
+.stars{font-size:46px;letter-spacing:6px;text-align:center}
+.result{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.result .score{font-family:var(--display);font-size:60px;font-weight:800}
+
+footer{text-align:center;color:var(--ink-soft);font-size:15px}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+@media (max-width:860px){
+  .cards{grid-template-columns:repeat(2,1fr)} .facts{grid-template-columns:1fr 1fr} .mini{grid-template-columns:repeat(3,1fr)}
+  .labeller{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .hero{grid-template-columns:1fr;text-align:left} .mascot{max-width:200px;grid-row:1}
+  .flow{grid-template-columns:1fr} .arrow{transform:rotate(90deg);justify-self:center}
+  .io,.tips,.facts,.opts{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr;gap:12px} .card,.card-in{min-height:240px} .face svg{width:84px;height:78px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<canvas id="confetti"></canvas>
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <span class="tag">6 ශ්‍රේණිය · තොරතුරු හා සන්නිවේදන තාක්ෂණය</span>
+    <h1>පරිගණකය <span>හඳුනා ගනිමු!</span></h1>
+    <p>පරිගණකය කියන්නේ මොකක්ද, ඒකේ කොටස් මොනවාද කියලා සෙල්ලම් කරමින් ඉගෙන ගමු.</p>
+    <nav class="nav" aria-label="කොටස්">
+      <a href="#what">පරිගණකය යනු?</a><a href="#parts">මූලික උපාංග</a><a href="#io">ආදාන / ප්‍රතිදාන</a><a href="#facts">දැන ගත්තාද?</a><a href="#quiz">ප්‍රශ්න විචාරය</a>
+    </nav>
+  </div>
+  <svg class="mascot" viewBox="0 0 240 240" role="img" aria-label="සිනාසෙන පරිගණක චරිතය">
+    <ellipse cx="120" cy="226" rx="70" ry="8" fill="#1d2340" opacity=".15"/>
+    <rect x="96" y="160" width="48" height="34" fill="#c9d2ea" stroke="#1d2340" stroke-width="4"/>
+    <rect x="66" y="190" width="108" height="16" rx="8" fill="#8a5cf6" stroke="#1d2340" stroke-width="4"/>
+    <rect x="26" y="22" width="188" height="144" rx="22" fill="#2f8cff" stroke="#1d2340" stroke-width="5"/>
+    <rect x="42" y="38" width="156" height="112" rx="12" fill="#ffffff" stroke="#1d2340" stroke-width="4"/>
+    <circle cx="92" cy="84" r="11" fill="#1d2340"/><circle cx="148" cy="84" r="11" fill="#1d2340"/>
+    <circle cx="96" cy="80" r="4" fill="#fff"/><circle cx="152" cy="80" r="4" fill="#fff"/>
+    <path d="M94 110 Q120 134 146 110" fill="#ff6b5b" stroke="#1d2340" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="70" cy="108" r="9" fill="#ff8fc8" opacity=".7"/><circle cx="170" cy="108" r="9" fill="#ff8fc8" opacity=".7"/>
+    <path d="M214 60 l14 -18" stroke="#1d2340" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="230" cy="38" r="9" fill="#ffcf3f" stroke="#1d2340" stroke-width="4"/>
+  </svg>
+</header>
+
+<!-- 1 -->
+<section class="sec" id="what">
+  <div class="sec-head"><div class="badge" style="background:var(--ocean-t)">1</div><h2>පරිගණකය යනු කුමක්ද?</h2></div>
+  <p class="def">පරිගණකයක් යනු <b>දත්ත ලබාගෙන, ඒවා සකසා, ප්‍රතිඵල ලබා දෙන</b> සහ තොරතුරු ගබඩා කර තබා ගන්නා ඉලෙක්ට්‍රොනික උපාංගයකි.</p>
+  <p class="lead">පරිගණකය හැම වැඩක්ම කරන්නේ පියවර තුනකින්. ඔබ <b>2 + 3</b> ගණනය කරනවා යැයි සිතන්න:</p>
+  <div class="flow">
+    <div class="step s1"><div class="big">ආදානය</div><p>අපි දත්ත ඇතුළත් කරනවා</p><span class="ex">⌨️ 2 + 3 ටයිප් කිරීම</span></div>
+    <div class="arrow" aria-hidden="true">➜</div>
+    <div class="step s2"><div class="big">සැකසීම</div><p>පරිගණකය වැඩේ කරනවා</p><span class="ex">🧠 2 + 3 = 5 ගණනය</span></div>
+    <div class="arrow" aria-hidden="true">➜</div>
+    <div class="step s3"><div class="big">ප්‍රතිදානය</div><p>අපට ප්‍රතිඵලය ලැබෙනවා</p><span class="ex">🖥️ තිරයේ 5 පෙන්වීම</span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="sec" id="parts">
+  <div class="sec-head"><div class="badge" style="background:var(--grape-t)">2</div><h2>පරිගණකයේ මූලික උපාංග හතර</h2></div>
+  <p class="lead">පරිගණකයක් නිසි ලෙස වැඩ කරන්න මේ උපාංග හතර සම්බන්ධ කළ යුතුයි. <b>කාඩ්පතක් ඔබා බලන්න</b> – ඒ උපාංගය කරන වැඩේ පෙනේවි!</p>
+  <div class="cards">
+    <button class="card c1" aria-label="පද්ධති ඒකකය කාඩ්පත පෙරළන්න"><div class="card-in">
+      <div class="face front">
+        <svg viewBox="0 0 110 100"><rect x="33" y="6" width="44" height="88" rx="6" fill="#8a5cf6" stroke="#1d2340" stroke-width="4"/><rect x="41" y="16" width="28" height="6" rx="2" fill="#fff" stroke="#1d2340" stroke-width="2"/><rect x="41" y="28" width="28" height="6" rx="2" fill="#fff" stroke="#1d2340" stroke-width="2"/><circle cx="55" cy="70" r="7" fill="#ffcf3f" stroke="#1d2340" stroke-width="3"/></svg>
+        <h3>පද්ධති ඒකකය</h3><span class="en">System Unit</span><span class="hint">ඔබන්න 👆</span></div>
+      <div class="face back"><h3>පද්ධති ඒකකය</h3><p>පරිගණකයේ <b>මොළය</b> තියෙන්නේ මෙතන. දත්ත සකසන්නේත් ගබඩා කරන්නේත් මෙයයි. අනෙක් උපාංග සියල්ල මෙයට සම්බන්ධ කරයි.</p></div>
+    </div></button>
+    <button class="card c2" aria-label="තිරය කාඩ්පත පෙරළන්න"><div class="card-in">
+      <div class="face front">
+        <svg viewBox="0 0 110 100"><rect x="8" y="8" width="94" height="62" rx="8" fill="#2f8cff" stroke="#1d2340" stroke-width="4"/><rect x="16" y="16" width="78" height="46" rx="4" fill="#d9f0ff"/><path d="M22 56 l18 -18 l14 12 l12 -10 l20 16z" fill="#38c27a"/><circle cx="78" cy="28" r="6" fill="#ffcf3f"/><rect x="47" y="70" width="16" height="14" fill="#c9d2ea" stroke="#1d2340" stroke-width="3"/><rect x="32" y="84" width="46" height="8" rx="4" fill="#1d2340"/></svg>
+        <h3>තිරය</h3><span class="en">Monitor</span><span class="hint">ඔබන්න 👆</span></div>
+      <div class="face back"><h3>තිරය</h3><p>පරිගණකයේ තියෙන අකුරු, පින්තූර, වීඩියෝ අපට <b>බලන්න පෙන්වන්නේ</b> තිරයෙන්.</p></div>
+    </div></button>
+    <button class="card c3" aria-label="යතුරු පුවරුව කාඩ්පත පෙරළන්න"><div class="card-in">
+      <div class="face front">
+        <svg viewBox="0 0 110 100"><rect x="6" y="28" width="98" height="46" rx="8" fill="#38c27a" stroke="#1d2340" stroke-width="4"/><g fill="#fff" stroke="#1d2340" stroke-width="2"><rect x="14" y="36" width="12" height="10" rx="2"/><rect x="30" y="36" width="12" height="10" rx="2"/><rect x="46" y="36" width="12" height="10" rx="2"/><rect x="62" y="36" width="12" height="10" rx="2"/><rect x="78" y="36" width="18" height="10" rx="2"/><rect x="14" y="50" width="16" height="10" rx="2"/><rect x="34" y="50" width="12" height="10" rx="2"/><rect x="50" y="50" width="12" height="10" rx="2"/><rect x="66" y="50" width="30" height="10" rx="2"/><rect x="30" y="63" width="50" height="7" rx="2"/></g></svg>
+        <h3>යතුරු පුවරුව</h3><span class="en">Keyboard</span><span class="hint">ඔබන්න 👆</span></div>
+      <div class="face back"><h3>යතුරු පුවරුව</h3><p>පරිගණකයට <b>අකුරු, අංක, සංකේත</b> ඇතුළත් කරන්න (Type කරන්න) යොදා ගනී.</p></div>
+    </div></button>
+    <button class="card c4" aria-label="මූසිකය කාඩ්පත පෙරළන්න"><div class="card-in">
+      <div class="face front">
+        <svg viewBox="0 0 110 100"><path d="M55 4 C 60 14, 40 18, 55 28" fill="none" stroke="#1d2340" stroke-width="3"/><rect x="30" y="26" width="50" height="68" rx="25" fill="#ff8fc8" stroke="#1d2340" stroke-width="4"/><line x1="55" y1="28" x2="55" y2="54" stroke="#1d2340" stroke-width="3"/><line x1="31" y1="54" x2="79" y2="54" stroke="#1d2340" stroke-width="3"/><rect x="51" y="34" width="8" height="12" rx="4" fill="#fff" stroke="#1d2340" stroke-width="2"/></svg>
+        <h3>මූසිකය</h3><span class="en">Mouse</span><span class="hint">ඔබන්න 👆</span></div>
+      <div class="face back"><h3>මූසිකය</h3><p>තිරයේ ඇති දේවල් <b>තෝරන්න, ක්ලික් කරන්න</b> සහ ඇදගෙන යන්න යොදා ගනී.</p></div>
+    </div></button>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:12px">පරිගණකයට සම්බන්ධ කළ හැකි තවත් උපාංග</h3>
+    <div class="mini">
+      <div><svg viewBox="0 0 52 46"><rect x="6" y="14" width="40" height="20" rx="4" fill="#c9d2ea" stroke="#1d2340" stroke-width="3"/><rect x="12" y="4" width="28" height="12" fill="#fff" stroke="#1d2340" stroke-width="3"/><rect x="12" y="30" width="28" height="12" fill="#fff" stroke="#1d2340" stroke-width="3"/></svg>මුද්‍රණ යන්ත්‍රය</div>
+      <div><svg viewBox="0 0 52 46"><rect x="8" y="4" width="16" height="38" rx="4" fill="#1d2340"/><circle cx="16" cy="28" r="5" fill="#8a5cf6"/><rect x="28" y="4" width="16" height="38" rx="4" fill="#1d2340"/><circle cx="36" cy="28" r="5" fill="#8a5cf6"/></svg>ස්පීකරය</div>
+      <div><svg viewBox="0 0 52 46"><rect x="18" y="4" width="16" height="24" rx="8" fill="#ffcf3f" stroke="#1d2340" stroke-width="3"/><path d="M12 22 q14 18 28 0" fill="none" stroke="#1d2340" stroke-width="3"/><line x1="26" y1="33" x2="26" y2="42" stroke="#1d2340" stroke-width="3"/></svg>මයික්‍රොෆෝනය</div>
+      <div><svg viewBox="0 0 52 46"><circle cx="26" cy="20" r="15" fill="#2f8cff" stroke="#1d2340" stroke-width="3"/><circle cx="26" cy="20" r="6" fill="#1d2340"/><rect x="16" y="37" width="20" height="6" rx="3" fill="#1d2340"/></svg>වෙබ් කැමරාව</div>
+      <div><svg viewBox="0 0 52 46"><rect x="4" y="18" width="44" height="22" rx="4" fill="#38c27a" stroke="#1d2340" stroke-width="3"/><path d="M6 18 L14 6 H46 L48 18" fill="#d9f0ff" stroke="#1d2340" stroke-width="3"/><line x1="10" y1="29" x2="42" y2="29" stroke="#ff6b5b" stroke-width="3"/></svg>ස්කෑනරය</div>
+      <div><svg viewBox="0 0 52 46"><path d="M10 30 V22 a16 16 0 0 1 32 0 V30" fill="none" stroke="#1d2340" stroke-width="4"/><rect x="5" y="26" width="10" height="16" rx="4" fill="#ff6b5b" stroke="#1d2340" stroke-width="3"/><rect x="37" y="26" width="10" height="16" rx="4" fill="#ff6b5b" stroke="#1d2340" stroke-width="3"/></svg>හෙඩ්ෆෝන්</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="sec" id="io">
+  <div class="sec-head"><div class="badge" style="background:var(--leaf-t)">3</div><h2>ආදාන සහ ප්‍රතිදාන උපාංග</h2></div>
+  <div class="io">
+    <div class="box in"><h3>ආදාන උපාංග <span class="pill">Input</span></h3><p>පරිගණකයට <b>දත්ත ඇතුළත් කරන</b> උපාංග. (දත්ත පරිගණකය <b>ඇතුළට</b> යයි ⬇️)</p></div>
+    <div class="box out"><h3>ප්‍රතිදාන උපාංග <span class="pill">Output</span></h3><p>පරිගණකයෙන් <b>ප්‍රතිඵල ලබා දෙන</b> උපාංග. (ප්‍රතිඵල පරිගණකයෙන් <b>එළියට</b> එයි ⬆️)</p></div>
+  </div>
+
+  <div class="panel" style="background:var(--sun-t);display:flex;flex-direction:column;gap:14px">
+    <h3>🎮 ක්‍රීඩාව: උපාංග වෙන් කරමු!</h3>
+    <p>එක් එක් උපාංගය <b>ආදාන</b> ද <b>ප්‍රතිදාන</b> ද කියලා බොත්තම ඔබන්න.</p>
+    <div class="pool" id="pool"></div>
+    <div class="io">
+      <div class="box in"><h3 style="font-size:20px">ආදාන උපාංග</h3><div class="drop" id="dropIn"></div></div>
+      <div class="box out"><h3 style="font-size:20px">ප්‍රතිදාන උපාංග</h3><div class="drop" id="dropOut"></div></div>
+    </div>
+    <p class="msg" id="sortMsg" aria-live="polite"></p>
+    <button class="reset" id="sortReset">↺ නැවත සෙල්ලම් කරන්න</button>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="sec" id="picture">
+  <div class="sec-head"><div class="badge" style="background:var(--pink-t)">4</div><h2>රූපයේ උපාංග නම් කරමු</h2></div>
+  <div class="panel labeller">
+    <img src="data:image/jpeg;base64,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" alt="මුද්‍රණ යන්ත්‍රය, තිරය, පද්ධති ඒකකය, මයික්‍රොෆෝනය, මූසිකය, යතුරු පුවරුව සහ ස්පීකර A සිට G දක්වා අකුරුවලින් ලකුණු කළ රූපය">
+    <div>
+      <p style="margin-bottom:12px">මුලින් ඔබම හිතලා බලන්න. ඊට පස්සේ අකුර ඔබලා උත්තරය බලන්න!</p>
+      <div class="ltrs" id="ltrs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="sec" id="facts">
+  <div class="sec-head"><div class="badge" style="background:var(--sun-t)">5</div><h2>දැන ගත්තාද? 🤔</h2></div>
+  <div class="facts">
+    <div class="fact f1"><span class="kicker">පරිගණකයේ පියා</span><h3>චාල්ස් බැබේජ්</h3><p>පරිගණකය පිළිබඳ සංකල්පය මුලින්ම හඳුන්වා දුන්නේ ඉංග්‍රීසි ගණිතඥයෙකු වූ චාල්ස් බැබේජ් (Charles Babbage). ඔහු නිර්මාණය කළ යන්ත්‍රය <b>Analytical Engine</b> ලෙස හැඳින්වේ.</p></div>
+    <div class="fact f2"><span class="kicker">ශ්‍රී ලංකාවේ වීරයා</span><h3>මහාචාර්ය වී. කේ. සමරනායක</h3><p>ශ්‍රී ලංකාවේ පරිගණක අධ්‍යාපනයේ පුරෝගාමියා ලෙස සැලකෙන්නේ මහාචාර්ය වී. කේ. සමරනායක මැතිතුමායි.</p></div>
+    <div class="fact f3"><span class="kicker">ඇතෙකුට වඩා බරයි!</span><div class="num">ටොන් 27</div><p>මුල්ම ඉලෙක්ට්‍රොනික පරිගණකවලින් එකක් වූ <b>ENIAC</b> (1946) ටොන් 27 ක් පමණ බරයි. ඒක ලොකු කාමරයක් පුරා පැතිරිලා තිබුණා. අද පරිගණකය අපේ සාක්කුවට දාගන්න පුළුවන්!</p></div>
+    <div class="fact f4"><span class="kicker">ලීයෙන් හැදූ මූසිකය</span><div class="num">1964</div><p>මුල්ම මූසිකය හැදුවේ ලීයෙන්! එය නිර්මාණය කළේ ඩග්ලස් එංගල්බාට් (Douglas Engelbart). කම්බිය වලිගයක් වගේ පෙනුණ නිසා "Mouse" (මීයා) කියලා නම දැම්මා.</p></div>
+    <div class="fact f5"><span class="kicker">යතුරු පුවරුවේ රහස</span><h3>QWERTY</h3><p>යතුරු පුවරුවේ උඩම පේළියේ මුල් අකුරු හයේ නම තමයි QWERTY. මේ පිළිවෙළ මුලින්ම හැදුවේ පරණ <b>යතුරු ලියන යන්ත්‍ර</b> (typewriter) සඳහායි.</p></div>
+    <div class="fact f6"><span class="kicker">පරිගණක සෑම තැනම</span><h3>ඔබ වටේටත් පරිගණක!</h3><p>ජංගම දුරකථනය, ATM යන්ත්‍රය, ස්මාර්ට් TV, රෝහල් යන්ත්‍ර – මේ හැම එකක් ඇතුළෙම පොඩි පරිගණකයක් වැඩ කරනවා.</p></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="sec" id="tips">
+  <div class="sec-head"><div class="badge" style="background:var(--coral-t)">6</div><h2>පරිගණකය ආරක්ෂිතව භාවිත කරමු</h2></div>
+  <div class="tips">
+    <div class="tip"><span class="ok yes">✓</span><p>පරිගණකය භාවිත කරන්න කලින් <b>අත් පිරිසිදුව, වියළිව</b> තබා ගන්න.</p></div>
+    <div class="tip"><span class="ok yes">✓</span><p><b>කෙළින් වාඩි වී</b>, තිරය ඇස් මට්ටමේ තබා ගන්න.</p></div>
+    <div class="tip"><span class="ok yes">✓</span><p>වැඩ අවසානයේ <b>Start → Power → Shut down</b> මගින් නිවැරදිව වසා දමන්න.</p></div>
+    <div class="tip"><span class="ok yes">✓</span><p>විනාඩි 20 කට වරක් <b>තිරයෙන් ඇස් ඉවතට ගෙන</b> ඈත බලන්න.</p></div>
+    <div class="tip"><span class="ok no">✗</span><p>පරිගණකය අසල <b>කෑම, බීම</b> තබා ගන්න එපා.</p></div>
+    <div class="tip"><span class="ok no">✗</span><p>ප්ලග් එක ගලවා පරිගණකය <b>එකවර නිවා දමන්න එපා</b>.</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="sec" id="quiz">
+  <div class="sec-head"><div class="badge" style="background:var(--grape-t)">7</div><h2>ප්‍රශ්න විචාරය ⭐</h2></div>
+  <div class="panel quiz" id="quizBox" aria-live="polite"></div>
+</section>
+
+<footer>6 ශ්‍රේණිය · තොරතුරු හා සන්නිවේදන තාක්ෂණය · පරිගණකයේ මූලික උපාංග</footer>
+</div>
+
+<script>
+/* flip cards */
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flip')));
+
+/* confetti */
+const cv=document.getElementById('confetti'),cx=cv.getContext('2d');let parts=[],anim=null;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function confetti(n=120){ if(reduce) return;
+  cv.width=innerWidth;cv.height=innerHeight;const cols=['#ffcf3f','#ff6b5b','#38c27a','#8a5cf6','#2f8cff','#ff8fc8'];
+  for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*6,c:cols[i%6],s:6+Math.random()*6,t:Math.random()*6});
+  if(!anim)tick();}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.t+=.1;cx.save();cx.translate(p.x,p.y);cx.rotate(p.t);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore();});
+  parts=parts.filter(p=>p.y<cv.height+20); anim=parts.length?requestAnimationFrame(tick):(cx.clearRect(0,0,cv.width,cv.height),null);}
+
+/* sorting game */
+const devices=[["යතුරු පුවරුව","in"],["තිරය","out"],["මූසිකය","in"],["මුද්‍රණ යන්ත්‍රය","out"],["මයික්‍රොෆෝනය","in"],["ස්පීකරය","out"],["වෙබ් කැමරාව","in"],["ස්කෑනරය","in"],["හෙඩ්ෆෝන්","out"]];
+const pool=document.getElementById('pool'),dIn=document.getElementById('dropIn'),dOut=document.getElementById('dropOut'),msg=document.getElementById('sortMsg');
+function buildSort(){pool.innerHTML='';dIn.innerHTML='';dOut.innerHTML='';msg.textContent='';
+  [...devices].sort(()=>Math.random()-.5).forEach(([name,kind])=>{
+    const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span>${name}</span><span class="btns"><button class="btn-in">ආදාන</button><button class="btn-out">ප්‍රතිදාන</button></span>`;
+    c.querySelector('.btn-in').onclick=()=>choose(c,name,kind,'in');
+    c.querySelector('.btn-out').onclick=()=>choose(c,name,kind,'out');
+    pool.appendChild(c);});}
+function choose(c,name,kind,pick){
+  if(kind===pick){c.remove();const t=document.createElement('span');t.className='placed';t.textContent=name;(pick==='in'?dIn:dOut).appendChild(t);
+    msg.textContent='නියමයි! 🎉 හරි උත්තරය.';msg.style.color='#1f8a52';
+    if(!pool.children.length){msg.textContent='සුපිරි! ඔක්කොම හරි! 🏆';confetti();}}
+  else{c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');
+    msg.textContent=pick==='in'?'අපොයි! '+name+' දත්ත ඇතුළත් කරන්නේ නැහැ. ආයෙත් බලන්න.':'අපොයි! '+name+' ප්‍රතිඵල පෙන්වන්නේ නැහැ. ආයෙත් බලන්න.';msg.style.color='#c43b2c';}}
+document.getElementById('sortReset').onclick=buildSort; buildSort();
+
+/* picture labels */
+const labels=[["A","මුද්‍රණ යන්ත්‍රය"],["B","තිරය"],["C","පද්ධති ඒකකය"],["D","මයික්‍රොෆෝනය"],["E","මූසිකය"],["F","යතුරු පුවරුව"],["G","ස්පීකර"]];
+const L=document.getElementById('ltrs');
+labels.forEach(([k,v])=>{const b=document.createElement('button');b.className='ltr';b.innerHTML=`<b>${k}</b><span>?</span>`;
+  b.onclick=()=>{b.classList.add('show');b.querySelector('span').textContent=v;};L.appendChild(b);});
+
+/* quiz */
+const Q=[
+ ["පරිගණකයේ 'මොළය' තියෙන්නේ කොහේද?",["තිරයේ","පද්ධති ඒකකයේ","මූසිකයේ","ස්පීකරයේ"],1],
+ ["පරිගණකයට අකුරු ටයිප් කරන්න භාවිත කරන්නේ කුමක්ද?",["යතුරු පුවරුව","මුද්‍රණ යන්ත්‍රය","තිරය","ස්පීකරය"],0],
+ ["මේ අතරින් ප්‍රතිදාන උපාංගයක් කුමක්ද?",["මූසිකය","ස්කෑනරය","මුද්‍රණ යන්ත්‍රය","මයික්‍රොෆෝනය"],2],
+ ["මේ අතරින් ආදාන උපාංගයක් කුමක්ද?",["හෙඩ්ෆෝන්","තිරය","ස්පීකරය","වෙබ් කැමරාව"],3],
+ ["'පරිගණකයේ පියා' ලෙස හඳුන්වන්නේ කවුද?",["චාල්ස් බැබේජ්","ඩග්ලස් එංගල්බාට්","වී. කේ. සමරනායක","අයිසැක් නිව්ටන්"],0],
+ ["ශ්‍රී ලංකාවේ පරිගණක අධ්‍යාපනයේ පුරෝගාමියා කවුද?",["චාල්ස් බැබේජ්","මහාචාර්ය වී. කේ. සමරනායක","ඩග්ලස් එංගල්බාට්","ඇලන් ටියුරින්"],1],
+ ["පරිගණකය වැඩ කරන පියවර තුනේ නිවැරදි පිළිවෙළ කුමක්ද?",["ප්‍රතිදානය → සැකසීම → ආදානය","සැකසීම → ආදානය → ප්‍රතිදානය","ආදානය → සැකසීම → ප්‍රතිදානය","ආදානය → ප්‍රතිදානය → සැකසීම"],2],
+ ["පරිගණකය නිවැරදිව වසා දැමීමට පළමුව ඔබන්නේ කුමක්ද?",["ප්ලග් එක ගලවන්න","Start බොත්තම","තිරයේ බොත්තම","UPS ස්විච්චය"],1]
+];
+const qb=document.getElementById('quizBox');let qi=0,score=0;
+function showQ(){
+  if(qi>=Q.length) return showResult();
+  const [t,opts,ans]=Q[qi];
+  qb.innerHTML=`<div class="qtop"><b>ප්‍රශ්නය ${qi+1} / ${Q.length}</b><div class="prog">${Q.map((_,i)=>`<i class="${i<qi?'done':''}"></i>`).join('')}</div></div>
+  <p class="qtext">${t}</p><div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div>
+  <div class="qfoot"><span id="fb" style="font-weight:800;font-size:18px"></span><button class="next" id="nx" hidden>ඊළඟ ➜</button></div>`;
+  qb.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i;qb.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+    qb.querySelectorAll('.opt')[ans].classList.add('right');
+    const fb=document.getElementById('fb');
+    if(i===ans){score++;fb.textContent='හරි! ඔබ දක්ෂයි! 🌟';fb.style.color='#1f8a52';}
+    else{b.classList.add('wrong');fb.textContent='හරි උත්තරය කොළ පාටින් 👆';fb.style.color='#c43b2c';}
+    const nx=document.getElementById('nx');nx.hidden=false;nx.textContent=qi===Q.length-1?'ප්‍රතිඵලය බලන්න 🏁':'ඊළඟ ➜';nx.onclick=()=>{qi++;showQ();};nx.focus();
+  });
+}
+function showResult(){
+  const stars=score===Q.length?3:score>=Q.length*.6?2:score>0?1:0;
+  const words=['ආයෙත් උත්සාහ කරමු! 💪','හොඳයි! තව ටිකක් පුහුණු වෙමු 👍','ඉතා හොඳයි! 👏','නියමයි! ඔබ පරිගණක තරුවක්! 🏆'][stars];
+  qb.innerHTML=`<div class="result"><div class="stars" aria-label="තරු ${stars}">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+   <div class="score">${score} / ${Q.length}</div><p style="font-size:20px;font-weight:800">${words}</p>
+   <button class="next" id="again">↺ නැවත කරන්න</button></div>`;
+  document.getElementById('again').onclick=()=>{qi=0;score=0;showQ();};
+  if(stars>=2)confetti(160);
+}
+showQ();
+</script>
+
+</body></html>
